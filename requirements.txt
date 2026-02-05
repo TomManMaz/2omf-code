@@ -1,0 +1,25 @@
+# 2-OMF: 2-Optimality Motif Finding
+# Requirements file for reproducible research
+# Generated: 2026-01-27
+# Python version: 3.9+ (tested on 3.13.5)
+
+# =============================================================================
+# CORE SCIENTIFIC DEPENDENCIES (Required)
+# =============================================================================
+numpy>=2.0.0,<3.0.0
+scipy>=1.10.0,<2.0.0
+
+# =============================================================================
+# TESTING (Required for verification)
+# =============================================================================
+pytest>=8.0.0
+pytest-timeout>=2.3.0
+
+# =============================================================================
+# OPTIONAL: Commercial Solver (Gurobi)
+# Uncomment if you have a Gurobi license (free academic licenses available)
+# See: https://www.gurobi.com/academia/academic-program-and-licenses/
+# =============================================================================
+# gurobipy>=10.0.0
+
+

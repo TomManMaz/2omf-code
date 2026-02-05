@@ -1,0 +1,55 @@
+# 2-OMF: 2-Optimality Motif Finding
+# Conda environment specification for reproducible research
+#
+# Usage:
+#   conda env create -f environment.yml
+#   conda activate 2omf
+#
+# Generated: 2026-01-27
+
+name: 2omf
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Python version
+  - python>=3.9,<3.14
+
+  # Core scientific stack
+  - numpy>=2.0.0
+  - scipy>=1.10.0
+
+  # Testing
+  - pytest>=8.0.0
+  - pytest-timeout>=2.3.0
+
+  # Development tools (optional)
+  - pip
+
+  # Pip-only packages
+  - pip:
+    # Uncomment for Gurobi (requires license)
+    # - gurobipy>=10.0.0
+
+    # Uncomment for SCIP (open-source solver)
+    # - PySCIPOpt>=5.0.0
+
+    # Uncomment for MPI parallelization
+    # - mpi4py>=4.0.0
+
+# =============================================================================
+# PLATFORM-SPECIFIC NOTES
+# =============================================================================
+# Linux:
+#   - MPI requires: apt-get install libopenmpi-dev openmpi-bin
+#   - SCIP requires: apt-get install libscip-dev (or build from source)
+#
+# macOS:
+#   - MPI requires: brew install open-mpi
+#   - SCIP requires: brew install scip
+#
+# Windows:
+#   - MPI: Install Microsoft MPI from https://docs.microsoft.com/en-us/message-passing-interface/microsoft-mpi
+#   - SCIP: Download from https://scipopt.org/index.php#download
+# =============================================================================

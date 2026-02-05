@@ -1,0 +1,46 @@
+{
+  "title": "Advancing the 2-Optimality Motif Finding problem: new benchmarks and efficient algorithms",
+  "upload_type": "software",
+  "publication_date": "2026-01-27",
+  "description": "Implementation of exact and heuristic algorithms for the 2-Optimality Motif Finding (2OMF) problem: finding a consensus sequence that minimizes the sum of squared Hamming distances to all input sequences. Includes Simulated Annealing, Hybrid Genetic Algorithm (HG2), and Gurobi-based exact optimization.",
+  "creators": [
+    {
+      "name": "Mannelli Mazzoli, Tommaso",
+      "affiliation": "TU Wien, Vienna, Austria",
+      "orcid": "0000-0002-5861-3155"
+    },
+    {
+      "name": "Gesmundo, Fulvio",
+      "affiliation": "Institut de Mathématiques de Toulouse; UMR5219 - Université de Toulouse; CNRS - UPS, France",
+      "orcid": "0000-0001-6402-021X"
+    },
+    {
+      "name": "Pinacho-Davidson, Pedro",
+      "affiliation": "Department of Computer Science, Universidad de Concepción, Chile",
+      "orcid": "0000-0001-9324-284X"
+    },
+    {
+      "name": "Winter, Felix",
+      "affiliation": "TU Wien, Vienna, Austria",
+      "orcid": "0000-0002-1012-1258"
+    },
+    {
+      "name": "Blum, Christian",
+      "affiliation": "Artificial Intelligence Research Institute (IIIA-CSIC), Bellaterra, Spain",
+      "orcid": "0000-0002-1736-3559"
+    }
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "keywords": [
+    "bioinformatics",
+    "optimization",
+    "metaheuristics",
+    "simulated annealing",
+    "genetic algorithm",
+    "consensus finding",
+    "motif finding",
+    "Hamming distance",
+    "combinatorial optimization",
+  ]
+}

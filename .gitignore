@@ -25,5 +25,8 @@ Thumbs.db
 *.tmp
 *.bak
 
+# Instances (extract with: bash 1-preprocess.sh)
+instances/
+
 # Results (regenerate with: python run_all.py)
 experiments/

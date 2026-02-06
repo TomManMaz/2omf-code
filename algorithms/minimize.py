@@ -3,8 +3,8 @@ Unified interfaces to minimization algorithms.
 """
 from typing import Optional, Dict
 
-from data.instance import Instance
-from data.result import Result
+from classes.instance import Instance
+from classes.result import Result
 from utils.logging import get_logger                                                                                                                                                              
 logger = get_logger(__name__)   
 

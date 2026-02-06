@@ -5,7 +5,7 @@ import csv
 import numpy as np
 
 from utils.logging import get_logger
-from data.instance import Instance
+from classes.instance import Instance
 
 logger = get_logger(__name__)
 
@@ -50,31 +50,6 @@ def _dict_formatter(d, n=0, mplus=1, sorter=None):
             s = str(d)
     return s
 
-
-# class _NiceResult(dict):
-#     """ Container for outputs and nice printing of results."""
-
-#     def __getattr__(self, name):
-#         try:
-#             return self[name]
-#         except KeyError as e:
-#             raise AttributeError(f"'{self.__class__.__name__}' object has no attribute '{name}'") from e
-
-#     def __repr__(self) -> None:
-#         # Compute the “official” string representation of an object
-#         order_keys = ['message','success','status','duration', 'objective_value', 'n_iterations', 'n_improvements', 'n_nodes', 'gap', 'x']
-#         order_keys = getattr(self, '_order_keys', order_keys)
-
-#         def key(item) -> int:
-#             return order_keys.index(item[0].lower())
-        
-#         if self.keys():
-#             return _dict_formatter(self, sorter=item_sorter)
-
-#         def __dir__(self):
-#             return list(self.keys())
-
-    #     return f"Result({', '.join(f'{key}={getattr(self, key)}' for key in order_keys)})"
 
 
 class _NiceResult:

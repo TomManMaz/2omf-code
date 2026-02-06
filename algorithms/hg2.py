@@ -15,8 +15,8 @@ import time
 import numpy as np
 from numpy.random import Generator, PCG64
 
-from data.instance import Instance
-from data.result import Result
+from classes.instance import Instance
+from classes.result import Result
 from config.algorithm_params import HG2Config
 import logging                                                                                                                                                                              
 logger = logging.getLogger(__name__)   

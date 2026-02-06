@@ -11,9 +11,9 @@ import math
 
 import numpy as np
 
-from data.solution import Solution
-from data.instance import Instance
-from data.result import Result
+from classes.solution import Solution
+from classes.instance import Instance
+from classes.result import Result
 from config.algorithm_params import SimulatedAnnealingConfig
 
 from utils.logging import get_logger
@@ -102,7 +102,7 @@ class SimulatedAnnealing:
         Returns:
             result (Result): The optimization result represented as a "Result" object. Important attributes are: ''x'' the solution sequence,
             ''fun'' the value of the objective function at that solution, and ''message'' which describes the cause of the termination.
-            See `data/result.py` for more details.
+            See `classes/result.py` for more details.
         Algorithm Overview:
             - Initializes a random solution and caches for mismatch counts.
             - Iteratively perturbs the solution by changing a random position to a new letter.

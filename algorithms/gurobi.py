@@ -17,9 +17,9 @@ else:
         gp = None
         GRB = None
 
-from data.instance import Instance
-from data.solution import Solution
-from data.result import Result
+from classes.instance import Instance
+from classes.solution import Solution
+from classes.result import Result
 from utils.logging import get_logger
 logger = get_logger(__name__)   
 
@@ -157,7 +157,7 @@ class GurobiWrapper():
         -------
         result (Result): The optimization result represented as a "Result" object. Important attributes are: ''x'' the solution sequence,
             ''fun'' the value of the objective function at that solution, and ''message'' which describes the cause of the termination.
-            See `data/result.py` for more details.
+            See `classes/result.py` for more details.
         """
         self.time_limit = timeout
         self.seed = seed

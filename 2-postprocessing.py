@@ -910,10 +910,17 @@ def _plot_detailed_comparison(df: pd.DataFrame, source_name: str) -> None:
 def _plot_boxplot_by_instance(df: pd.DataFrame, source_name: str) -> None:
     import matplotlib.pyplot as plt
     import seaborn as sns
+    import matplotlib.patches as mpatches
+    import matplotlib.lines as mlines
 
     colors = _get_algo_colors()
     fontsize = 18
     df_source = df[df["Source"] == source_name]
+
+    # Separate multi-run algorithms (boxplots) from single-run (markers)
+    algo_order = ["SA", "HG2", "GRB"]
+    multi_run_algos = [a for a in algo_order if a != "GRB"]
+    single_run_algos = [a for a in algo_order if a == "GRB"]
 
     for alphabet_size in df_source["alphabet_size"].unique():
         df_k = df_source[df_source["alphabet_size"] == alphabet_size]
@@ -923,10 +930,43 @@ def _plot_boxplot_by_instance(df: pd.DataFrame, source_name: str) -> None:
                 df_subset = df_m[df_m["num_sequences"] == num_seq]
 
                 fig, ax = plt.subplots()
-                sns.boxplot(
-                    data=df_subset, x="index", y="GAP", hue="algorithm",
-                    ax=ax, palette=colors, legend=False,
-                )
+
+                # Boxplots for multi-run algorithms (SA, HG2)
+                df_multi = df_subset[df_subset["algorithm"].isin(multi_run_algos)]
+                if not df_multi.empty:
+                    sns.boxplot(
+                        data=df_multi, x="index", y="GAP", hue="algorithm",
+                        hue_order=multi_run_algos,
+                        ax=ax, palette=colors, legend=False,
+                    )
+
+                # Overlay single-run algorithms (GRB) as diamond markers
+                df_single = df_subset[df_subset["algorithm"].isin(single_run_algos)]
+                if not df_single.empty:
+                    index_values = sorted(df_subset["index"].unique())
+                    index_to_pos = {v: i for i, v in enumerate(index_values)}
+                    for algo in single_run_algos:
+                        df_algo = df_single[df_single["algorithm"] == algo]
+                        x_positions = [index_to_pos[idx] for idx in df_algo["index"]]
+                        ax.scatter(
+                            x_positions, df_algo["GAP"],
+                            color=colors[algo], marker="D", s=100,
+                            zorder=5, edgecolors="black", linewidths=0.5,
+                        )
+
+                # Legend
+                handles = []
+                for algo in multi_run_algos:
+                    handles.append(mpatches.Patch(color=colors[algo], label=algo))
+                for algo in single_run_algos:
+                    handles.append(mlines.Line2D(
+                        [], [], color=colors[algo], marker="D", linestyle="None",
+                        markersize=8, markeredgecolor="black", markeredgewidth=0.5,
+                        label=algo,
+                    ))
+                ax.legend(handles=handles, fontsize=fontsize - 4, title="Algorithm",
+                          title_fontsize=fontsize - 4)
+
                 ax.grid(True, axis="y", alpha=0.3, linestyle="--")
                 ax.tick_params(labelsize=fontsize)
                 ax.set_xlabel("Instance Index", fontsize=fontsize)

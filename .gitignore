@@ -30,3 +30,7 @@ instances/
 
 # Results (regenerate with: python run_all.py)
 experiments/
+
+# Claude
+CLAUDE.md
+.claude/

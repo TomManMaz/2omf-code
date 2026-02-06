@@ -1,5 +1,7 @@
 # 2-Optimality Motif Finding (2-OMF)
 
+**Paper:** *Advancing the 2-Optimality Motif Finding problem: new benchmarks and efficient algorithms*
+
 **Maintainer:** Tommaso Mannelli Mazzoli
 
 **Contributors:** Tommaso Mannelli Mazzoli, Fulvio Gesmundo, Pedro Pinacho-Davidson, Felix Winter, Christian Blum
@@ -15,7 +17,7 @@ pip install -r requirements.txt
 ```
 
 ## Requirements
-- Python >= 3.9 (tested on 3.13.5)
+- Python >= 3.9 (tested on 3.13.11 and 3.13.5)
 
 ## Optional: Gurobi Solver
 

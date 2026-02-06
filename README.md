@@ -7,27 +7,27 @@ This repository contains the code accompanying the paper:
 
 ## Overview
 
-This code implements exact and heuristic algorithms for the 2-Optimality Motif Finding (2-OMF) problem. Given n integer sequences of length m over an alphabet of size k, the objective is to find a median string that minimizes the sum of squared Hamming distances to all input sequences.
+This code implements exact and heuristic algorithms for the 2-Optimality Motif Finding (2-OMF) problem. Given n integer sequences of length m over an alphabet of size k, the objective is to find a string that minimizes the sum of squared Hamming distances to all input sequences.
 
 Three algorithms are provided:
-- **Simulated Annealing (SA)**: A metaheuristic with time-based cooling schedule and O(n) delta evaluation for neighborhood moves.
-- **HG2**: A Hybrid Genetic Algorithm using pure NumPy arrays for performance-critical operations.
-- **Gurobi**: An exact ILP formulation (requires a Gurobi license).
+- **Simulated Annealing (SA)**: A metaheuristic with time-based cooling schedule.
+- **HG2**: A Hybrid Genetic Algorithm from the literature, the current state of the art.
+- **Gurobi**: An exact Mixed Integer Quadratic Programming (MIQP) formulation (requires a Gurobi license).
 
 ## Files
 
 ### Algorithms
 
 - **algorithms/simulated_annealing.py**: Simulated Annealing implementation with IRACE-tuned default parameters. The cooling schedule is wall-clock based, so results depend on hardware speed.
-- **algorithms/hg2.py**: Hybrid Genetic Algorithm. Population stored as a 2D int32 NumPy array; all genetic operators work directly on arrays.
-- **algorithms/gurobi.py**: Exact ILP solver wrapper. Optional dependency (`gurobipy`).
+- **algorithms/hg2.py**: Hybrid Genetic Algorithm.
+- **algorithms/gurobi.py**: Exact MIQP solver wrapper. Optional dependency (`gurobipy`).
 - **algorithms/minimize.py**: Unified dispatch layer that routes to the appropriate algorithm.
 
 ### Data Model
 
-- **data/instance.py**: Problem instance representation. Holds n sequences as an `np.ndarray` of shape `(n, m)`. Provides lower bound computations (`static_bound`, `mode_bound`) and instance generation methods (`generate_uniform`, `generate_balanced`, etc.).
-- **data/solution.py**: Candidate solution wrapper. `evaluate()` computes the sum of squared Hamming distances; `calculate_objective_delta()` provides O(n) incremental evaluation for single-character changes.
-- **data/result.py**: Optimization result container. Results are appended to CSV files via `to_file()`.
+- **data/instance.py**: Problem instance representation. Holds n sequences as an `np.ndarray` of shape `(n, m)`. Provides a lower bound computation (`static_bound`) and instance generation methods (`generate_uniform`, `generate_balanced`, etc.).
+- **data/solution.py**: The solution Class. `evaluate()` computes the sum of squared Hamming distances; `calculate_objective_delta()` provides O(n) incremental evaluation for single-character changes.
+- **data/result.py**: Optimization result container. Results can be written to CSV files via `to_file()`.
 
 ### Configuration
 

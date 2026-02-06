@@ -1,37 +1,83 @@
-# 2-Optimality Motif Finding (2-OMF)
+# 2-Optimality Motif Finding (2-OMF) - Companion Code
 
-**Paper:** *Advancing the 2-Optimality Motif Finding problem: new benchmarks and efficient algorithms*
+This repository contains the code accompanying the paper:
 
-**Maintainer:** Tommaso Mannelli Mazzoli
+> **Advancing the 2-Optimality Motif Finding problem: new benchmarks and efficient algorithms**
+> Tommaso Mannelli Mazzoli, Fulvio Gesmundo, Pedro Pinacho-Davidson, Felix Winter, and Christian Blum
 
-**Contributors:** Tommaso Mannelli Mazzoli, Fulvio Gesmundo, Pedro Pinacho-Davidson, Felix Winter, Christian Blum
+## Overview
 
-## Description
-Implementation of exact and heuristic algorithms for the 2-Optimality Motif Finding (2OMF) problem.
+This code implements exact and heuristic algorithms for the 2-Optimality Motif Finding (2-OMF) problem. Given n integer sequences of length m over an alphabet of size k, the objective is to find a median string that minimizes the sum of squared Hamming distances to all input sequences.
+
+Three algorithms are provided:
+- **Simulated Annealing (SA)**: A metaheuristic with time-based cooling schedule and O(n) delta evaluation for neighborhood moves.
+- **HG2**: A Hybrid Genetic Algorithm using pure NumPy arrays for performance-critical operations.
+- **Gurobi**: An exact ILP formulation (requires a Gurobi license).
+
+## Files
+
+### Algorithms
+
+- **algorithms/simulated_annealing.py**: Simulated Annealing implementation with IRACE-tuned default parameters. The cooling schedule is wall-clock based, so results depend on hardware speed.
+- **algorithms/hg2.py**: Hybrid Genetic Algorithm. Population stored as a 2D int32 NumPy array; all genetic operators work directly on arrays.
+- **algorithms/gurobi.py**: Exact ILP solver wrapper. Optional dependency (`gurobipy`).
+- **algorithms/minimize.py**: Unified dispatch layer that routes to the appropriate algorithm.
+
+### Data Model
+
+- **data/instance.py**: Problem instance representation. Holds n sequences as an `np.ndarray` of shape `(n, m)`. Provides lower bound computations (`static_bound`, `mode_bound`) and instance generation methods (`generate_uniform`, `generate_balanced`, etc.).
+- **data/solution.py**: Candidate solution wrapper. `evaluate()` computes the sum of squared Hamming distances; `calculate_objective_delta()` provides O(n) incremental evaluation for single-character changes.
+- **data/result.py**: Optimization result container. Results are appended to CSV files via `to_file()`.
+
+### Configuration
+
+- **config/algorithm_params.py**: IRACE-tuned default parameters for SA and HG2 as frozen dataclasses.
+
+### Statistical Evaluation
+
+- **statistical_evaluation/statistical_evaluation.R**: R script for statistical analysis of experimental results.
+
+### Other
+
+- **main.py**: CLI entry point. Parses arguments and calls `minimize()`.
+- **1-preprocess.sh**: Extracts benchmark instances from `instances.tar.gz`.
+- **instances.tar.gz**: Archived benchmark instances in `.dat` format.
+
+## Requirements
+
+- Python >= 3.9 (tested on 3.13.11 and 3.13.5)
+- NumPy >= 2.0.0
+- SciPy >= 1.10.0
+
+### Optional: Gurobi Solver
+
+The exact optimization method requires Gurobi (commercial solver, free academic licenses available at https://www.gurobi.com/).
+
+```bash
+pip install gurobipy
+```
 
 ## Installation
+
 ```bash
 git clone [url repo]
 cd 2omf
 pip install -r requirements.txt
+bash 1-preprocess.sh
 ```
 
-## Requirements
-- Python >= 3.9 (tested on 3.13.11 and 3.13.5)
+## Usage
 
-## Optional: Gurobi Solver
+```bash
+# Run Simulated Annealing on an instance
+python main.py -a sa -i instances/uniform_480_50_2_2.dat --timeout 20
 
-The exact optimization method requires Gurobi (commercial solver).
+# Run HG2 (Hybrid Genetic Algorithm) on an instance
+python main.py -a hg2 -i instances/uniform_480_50_2_2.dat --timeout 20
 
-### Without Gurobi
-The following algorithms work without Gurobi:
-- `sa` / `simulated_annealing`: Simulated Annealing
-- `hg2`: Hybrid Genetic Algorithm
-
-### With Gurobi
-1. Obtain a license from https://www.gurobi.com/ (Free academic licenses available)
-2. Install: `pip install gurobipy`
-3. Use: `python main.py -a gurobi -i instances/uniform_480_50_2_1.dat`
+# Run exact solver (requires Gurobi) on an instance
+python main.py -a gurobi -i instances/uniform_480_50_2_2.dat --timeout 20
+```
 
 ## Instance Format
 
@@ -55,17 +101,7 @@ File naming convention: `{type}_{n}_{m}_{k}_{id}.dat` where type is `balanced` o
 Both SA and HG2 accept a `--seed` flag for deterministic random number generation.
 The SA cooling schedule is time-dependent (temperature updates based on wall-clock elapsed time), so results are deterministic on the **same machine, same Python version, and same system load**, but may differ across hardware due to varying iteration counts within the time budget. This is standard for time-limited metaheuristics.
 
-## Usage
-```bash
-# Run Simulated Annealing on an instance
-python main.py -a sa -i instances/uniform_480_50_2_2.dat --timeout 20
-
-# Run HG2 (Hybrid Genetic Algorithm) on an instance
-python main.py -a hg2 -i instances/uniform_480_50_2_2.dat --timeout 20
-
-# Run exact solver (requires Gurobi) on an instance
-python main.py -a gurobi -i instances/uniform_480_50_2_2.dat --timeout 20
-```
 
 ## License
+
 MIT License - see LICENSE file

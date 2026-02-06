@@ -45,9 +45,9 @@ Three algorithms are provided:
 ### Other
 
 - **1-run_experiments.py**: CLI entry point. Parses arguments and calls `minimize()`.
-- **0-preprocess.sh**: Extracts benchmark instances from `instances.tar.gz` and experiment results from `results.tar.gz`.
-- **instances.tar.gz**: Archived benchmark instances in `.dat` format.
-- **results.tar.gz**: Archived experiment logs (stderr/stdout from cluster runs).
+- **0-preprocess.sh**: Extracts benchmark instances from `data/instances.tar.gz` and experiment results from `data/results.tar.gz`.
+- **data/instances.tar.gz**: Archived benchmark instances in `.dat` format.
+- **data/results.tar.gz**: Archived experiment logs (stderr/stdout from cluster runs).
 
 ## Requirements
 
@@ -104,7 +104,7 @@ File naming convention: `{type}_{n}_{m}_{k}_{id}.dat` where type is `balanced` o
 
 ## Post-processing / Reproducing paper figures
 
-To reproduce all tables and figures from the paper, first place `results.tar.gz` in the repository root, then run:
+To reproduce all tables and figures from the paper, ensure `data/results.tar.gz` is present, then run:
 
 ```bash
 bash 0-preprocess.sh          # extract instances + results

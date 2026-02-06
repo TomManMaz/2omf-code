@@ -44,7 +44,7 @@ Three algorithms are provided:
 
 ### Other
 
-- **main.py**: CLI entry point. Parses arguments and calls `minimize()`.
+- **1-run_experiments.py**: CLI entry point. Parses arguments and calls `minimize()`.
 - **0-preprocess.sh**: Extracts benchmark instances from `instances.tar.gz` and experiment results from `results.tar.gz`.
 - **instances.tar.gz**: Archived benchmark instances in `.dat` format.
 - **results.tar.gz**: Archived experiment logs (stderr/stdout from cluster runs).
@@ -69,20 +69,20 @@ pip install gurobipy
 git clone [url repo]
 cd 2omf
 pip install -r requirements.txt
-bash 1-preprocess.sh
+bash 0-preprocess.sh
 ```
 
 ## Usage
 
 ```bash
 # Run Simulated Annealing on an instance
-python main.py -a sa -i instances/uniform_480_50_2_2.dat --timeout 20
+python 1-run_experiments.py -a sa -i instances/uniform_480_50_2_2.dat --timeout 20
 
 # Run HG2 (Hybrid Genetic Algorithm) on an instance
-python main.py -a hg2 -i instances/uniform_480_50_2_2.dat --timeout 20
+python 1-run_experiments.py -a hg2 -i instances/uniform_480_50_2_2.dat --timeout 20
 
 # Run exact solver (requires Gurobi) on an instance
-python main.py -a gurobi -i instances/uniform_480_50_2_2.dat --timeout 20
+python 1-run_experiments.py -a gurobi -i instances/uniform_480_50_2_2.dat --timeout 20
 ```
 
 ## Instance Format
